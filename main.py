@@ -1,3 +1,4 @@
+"""Main application module."""
 from config import JSON_PATH, OUTPUT_PATH
 from search_ops import search
 from storage import load_json, save_json
@@ -5,6 +6,7 @@ from utils import time_now
 
 
 def main() -> None:
+    """Run the main application."""
     data = load_json(JSON_PATH)
     if data is not None:
         print(f"количество элементов в файле: {len(data)}")
