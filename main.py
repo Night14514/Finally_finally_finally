@@ -1,22 +1,26 @@
 """Main application module."""
 from config import JSON_PATH, OUTPUT_PATH
-from search_ops import search
-from storage import load_json, save_json
-from utils import time_now
+from search_ops import FileSearcher
+from storage import JsonStorage
+from utils import TimeUtility
 
 
 def main() -> None:
     """Run the main application."""
-    data = load_json(JSON_PATH)
+    storage = JsonStorage()
+    searcher = FileSearcher()
+    time_util = TimeUtility()
+
+    data = storage.load(JSON_PATH)
     if data is not None:
         print(f"количество элементов в файле: {len(data)}")
-        save_json(data, OUTPUT_PATH)
+        storage.save(data, OUTPUT_PATH)
         key = input("введите ключ для поиска: ")
         try:
-            search(key, OUTPUT_PATH)
+            searcher.search(key, OUTPUT_PATH)
         except ValueError as e:
             print(e)
-        time_now()
+        time_util.display_current_time()
 
 
 if __name__ == "__main__":
